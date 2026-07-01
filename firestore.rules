@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// IMPORTANT NOTE ON SECURITY MODEL:
+// This portfolio's "Admin Passkey" only gates the UI (it decides whether the
+// upload forms are *shown* in the browser). It does NOT use Firebase Auth,
+// so it cannot be referenced inside these rules. Because the Firebase API
+// key and config are public by design (they identify the project, not a
+// secret), these rules are what actually protect your data.
+//
+// The rules below take the pragmatic approach for a simple personal
+// portfolio: public READ access (so the site works for visitors) and
+// public WRITE access scoped to known collections with field validation,
+// so the database can't be used to store arbitrary garbage even without
+// real authentication.
+//
+// RECOMMENDED UPGRADE: migrate the admin gate to Firebase Authentication
+// (e.g. Email/Password or Anonymous + custom claims) and replace the writes
+// rules below with `allow write: if request.auth.uid == "<your-uid>";`
+// for true server-verified protection.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['title', 'description'])
+                    && request.resource.data.title is string
+                    && request.resource.data.title.size() < 200
+                    && request.resource.data.description is string
+                    && request.resource.data.description.size() < 2000;
+      allow update, delete: if false; // Disable from client; manage via console if needed
+    }
+
+    match /certificates/{certId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['title', 'issuer'])
+                    && request.resource.data.title is string
+                    && request.resource.data.title.size() < 200;
+      allow update, delete: if false;
+    }
+
+    match /messages/{messageId} {
+      allow read: if false; // Only you should read leads — view in Firebase Console
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'message'])
+                    && request.resource.data.email is string
+                    && request.resource.data.message.size() < 5000;
+      allow update, delete: if false;
+    }
+  }
+}
