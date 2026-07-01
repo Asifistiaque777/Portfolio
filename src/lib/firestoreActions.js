@@ -6,6 +6,9 @@ import {
   query,
   orderBy,
   serverTimestamp,
+  doc,
+  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   ref,
@@ -64,6 +67,30 @@ export async function addProjectWithUrl({ title, description, tags, liveLink, gi
   return docRef.id;
 }
 
+// 🆕 প্রজেক্ট ডিলিট করার ফাংশন
+export async function deleteProject(id) {
+  try {
+    const docRef = doc(db, "projects", id);
+    await deleteDoc(docRef);
+    return true;
+  } catch (err) {
+    console.error("deleteProject error:", err);
+    throw err;
+  }
+}
+
+// 🆕 প্রজেক্ট আপডেট/এডিট করার ফাংশন
+export async function updateProject(id, updatedData) {
+  try {
+    const docRef = doc(db, "projects", id);
+    await updateDoc(docRef, updatedData);
+    return true;
+  } catch (err) {
+    console.error("updateProject error:", err);
+    throw err;
+  }
+}
+
 /* ---------------- CERTIFICATES ---------------- */
 
 export async function getCertificates() {
@@ -77,15 +104,41 @@ export async function getCertificates() {
   }
 }
 
-export async function addCertificate({ title, issuer, issueDate, credentialUrl, badgeIcon }) {
+// 🛠️ ইমেজ URL রিসিভ এবং সেভ করার জন্য এই ফাংশনটি আপডেট করা হয়েছে
+export async function addCertificate({ title, issuer, issueDate, credentialUrl, badgeIcon, image }) {
   const docRef = await addDoc(collection(db, "certificates"), {
     title,
     issuer,
     issueDate,
     credentialUrl: credentialUrl || "",
     badgeIcon: badgeIcon || "Award",
+    image: image || "", // 🆕 ডেটাবেজে সার্টিফিকেটের ছবির লিংক সেভ হবে
     createdAt: serverTimestamp(),
   });
 
   return docRef.id;
+}
+
+// 🆕 সার্টিফিকেট ডিলিট করার ফাংশন
+export async function deleteCertificate(id) {
+  try {
+    const docRef = doc(db, "certificates", id);
+    await deleteDoc(docRef);
+    return true;
+  } catch (err) {
+    console.error("deleteCertificate error:", err);
+    throw err;
+  }
+}
+
+// 🆕 সার্টিফিকেট আপডেট/এডিট করার ফাংশন
+export async function updateCertificate(id, updatedData) {
+  try {
+    const docRef = doc(db, "certificates", id);
+    await updateDoc(docRef, updatedData);
+    return true;
+  } catch (err) {
+    console.error("updateCertificate error:", err);
+    throw err;
+  }
 }

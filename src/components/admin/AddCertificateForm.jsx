@@ -2,7 +2,7 @@
 "use client";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Award, BadgeCheck, GraduationCap, Loader2, Star, Trophy } from "lucide-react";
+import { Award, BadgeCheck, GraduationCap, Loader2, Star, Trophy, Link2 } from "lucide-react";
 import { addCertificate } from "@/lib/firestoreActions";
 
 const badgeOptions = [
@@ -19,6 +19,7 @@ const initialState = {
   issueDate: "",
   credentialUrl: "",
   badgeIcon: "Award",
+  image: "", // 🆕 ফায়ারবেসে ইমেজ পাথ স্টোর করার জন্য
 };
 
 export default function AddCertificateForm() {
@@ -103,6 +104,25 @@ export default function AddCertificateForm() {
             className="input-cyber"
           />
         </div>
+      </div>
+
+      {/* 🆕 সার্টিফিকেট ইমেজ URL ইনপুট ফিল্ড */}
+      <div>
+        <label className="label-tag mb-2 block">Certificate Image URL</label>
+        <div className="relative">
+          <Link2 size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+          <input
+            type="url"
+            name="image"
+            value={form.image}
+            onChange={handleChange}
+            placeholder="https://i.ibb.co/xxxxx/your-certificate.png"
+            className="input-cyber pl-10"
+          />
+        </div>
+        <p className="mt-2 text-[11px] text-slate-500">
+          সার্টিফিকেটের ছবি প্রথমে <a href="https://imgbb.com" target="_blank" rel="noopener noreferrer" className="text-neon-green underline">imgbb.com</a> তে আপলোড করে ডাইরেক্ট লিংকটি এখানে দিন।
+        </p>
       </div>
 
       <div>

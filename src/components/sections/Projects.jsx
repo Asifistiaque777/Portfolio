@@ -32,11 +32,12 @@ export default function Projects() {
       />
 
       {loading ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-          {Array.from({ length: 6 }).map((_, i) => (
+        // স্কেলেটন লোডারের কলাম সংখ্যাও ২ কলামে ম্যাচ করা হয়েছে বড় কার্ডের সাথে
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
+          {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="glass-card h-[360px] animate-pulse bg-white/[0.02]"
+              className="glass-card h-[450px] animate-pulse bg-white/[0.02] rounded-2xl"
             />
           ))}
         </div>
@@ -49,7 +50,8 @@ export default function Projects() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        // কার্ড বড় করার সুবিধার্থে ৩ কলাম থেকে কমিয়ে প্রফেশনাল ২ কলাম লেআউট করা হয়েছে
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
