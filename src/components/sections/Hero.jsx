@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 
 export default function Hero() {
-  // অ্যানিমেশন ভেরিয়েন্ট
+  // অ্যানিমেশন ভেরিয়েন্ট
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,7 +36,7 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-32 text-center sm:px-10 lg:pt-20"
     >
-      {/* ব্যাকগ্রাউন্ড গ্লো ইফেক্টস */}
+      {/* ব্যাকগ্রাউন্ড গ্লো ইফেক্টส์ */}
       <div className="absolute top-1/4 left-1/2 -z-10 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-neon-green/10 blur-[120px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/3 -z-10 h-[300px] w-[300px] rounded-full bg-neon-orange/5 blur-[100px] pointer-events-none" />
 
@@ -58,12 +58,12 @@ export default function Hero() {
           Available for new opportunities
         </motion.div>
 
-        {/* ২. প্রিমিয়াম প্রফেশনাল ইমেজ ফ্রেম */}
+        {/* ২. প্রিমিয়াম প্রফেশনাল ইমেজ ফ্রেম */}
         <motion.div 
           variants={imageVariants} 
           className="relative mb-8 flex justify-center group"
         >
-          {/* ছবির পেছনের গ্লোয়িং বর্ডার রিং */}
+          {/* ছবির পেছনের গ্লোয়িং বর্ডার রিং */}
           <div className="absolute inset-0 -m-1.5 rounded-full bg-gradient-to-r from-neon-green to-teal-500 opacity-40 blur-sm transition duration-500 group-hover:opacity-70 group-hover:blur-md" />
           
           <div className="relative h-48 w-48 overflow-hidden rounded-full border-2 border-white/10 bg-slate-900 p-1.5 shadow-2xl transition-transform duration-500 group-hover:scale-[1.03] sm:h-56 sm:w-56">
@@ -107,21 +107,28 @@ export default function Hero() {
             View My Work 
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </a>
-          <a href="/resume.pdf" className="btn-outline w-full sm:w-auto justify-center group backdrop-blur-sm" download="Asif-Istiaque-Resume.pdf">
+          
+          {/* 🔗 আপনার গুগল ড্রাইভের সিভি লিংকটি এখানে যুক্ত করা হয়েছে */}
+          <a 
+            href="https://drive.google.com/file/d/1hfmOZiFSJU9yGDbAyCFWDCu-RDeek5Fg/view?usp=sharing" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline w-full sm:w-auto justify-center group backdrop-blur-sm cursor-pointer"
+          >
             Download Resume 
             <Download size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" />
           </a>
         </motion.div>
 
-        {/* ৬. মডার্ন সোশ্যাল আইকন গ্রিড */}
+        {/* ৬. মডার্ন সোশ্যাল আইকন গ্রিড (লিংক আপডেট করা হয়েছে) */}
         <motion.div
           variants={itemVariants}
           className="mt-14 flex items-center gap-6"
         >
           {[
-            { icon: Github, href: "https://github.com/", label: "GitHub" },
-            { icon: Linkedin, href: "https://linkedin.com/", label: "LinkedIn" },
-            { icon: Mail, href: "#contact", label: "Email" },
+            { icon: Github, href: "https://github.com/Asifistiaque777", label: "GitHub" },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/asif-istiaque", label: "LinkedIn" },
+            { icon: Mail, href: "mailto:asifistiaque32@gmail.com", label: "Email" },
           ].map(({ icon: Icon, href, label }) => (
             <a
               key={label}
