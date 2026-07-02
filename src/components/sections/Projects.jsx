@@ -12,6 +12,7 @@ export default function Projects() {
 
   useEffect(() => {
     let mounted = true;
+    // getProjects এখন সরাসরি ফায়ারবেস থেকে কাস্টম 'order' অনুযায়ী সর্ট করা ডেটা নিয়ে আসবে
     getProjects().then((data) => {
       if (mounted) {
         setProjects(data);
@@ -32,7 +33,7 @@ export default function Projects() {
       />
 
       {loading ? (
-        // স্কেলেটন লোডারের কলাম সংখ্যাও ২ কলামে ম্যাচ করা হয়েছে বড় কার্ডের সাথে
+        // স্কেলেটন লোডারের কলাম সংখ্যাও ২ কলামে ম্যাচ করা হয়েছে বড় কার্ডের সাথে
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
@@ -50,7 +51,7 @@ export default function Projects() {
           </p>
         </div>
       ) : (
-        // কার্ড বড় করার সুবিধার্থে ৩ কলাম থেকে কমিয়ে প্রফেশনাল ২ কলাম লেআউট করা হয়েছে
+        // কার্ড বড় করার সুবিধার্থে ৩ কলাম থেকে কমিয়ে প্রফেশনাল ২ কলাম লেআউট করা হয়েছে
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-6xl mx-auto">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />

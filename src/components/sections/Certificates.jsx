@@ -39,6 +39,7 @@ export default function Certificates() {
 
   useEffect(() => {
     let mounted = true;
+    // getCertificates এখন সরাসরি ফায়ারবেস থেকে কাস্টম 'order' অনুযায়ী সর্ট করা ডেটা নিয়ে আসবে
     getCertificates().then((data) => {
       if (mounted) {
         setCerts(data);
@@ -77,7 +78,7 @@ export default function Certificates() {
               No certificates added yet.
             </div>
           ) : (
-            // মোবাইল ও ট্যাবের জন্য সুন্দর ২-কলাম রেসপন্সিভ গ্রিড
+            // মোবাইল ও ডেস্কটপের জন্য কাস্টম ড্র্যাগ অর্ডার অনুযায়ী সাজানো গ্রিড
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {certs.map((cert, i) => {
                 const IconComponent = iconMap[cert.badgeIcon] || Award;
